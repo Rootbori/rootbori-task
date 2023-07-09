@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { getBoards } from '../api/api'
+import { useParams } from 'react-router-dom'
 
-const Boards: React.FC = () => {
+const Task: React.FC = () => {
+    const { id } = useParams();
     const [boards, setBoards] = useState([])
 
+    console.log('id',id)
     useEffect(() => {
         onLoad()
-    }, [])
+    }, [id])
 
     const onLoad = async () => {
         setBoards([])
@@ -17,9 +20,9 @@ const Boards: React.FC = () => {
 
     return <div className={'w-full h-full bg-blue-700'}>
         {boards?.length > 0 && boards?.map((e: any, index: number) => {
-            return <a href={`/task/${e?.board_id}`} key={`bords-${index}`} className={'w-full p-2 font-bold'}>{e?.board_name || '-'}</a>
+            return <a href={`/task?id=${e?.board_id}`} key={`bords-${index}`} className={'w-full p-2 font-bold'}>{e?.board_name || '-'}</a>
         })}
     </div>
 }
 
-export default Boards
+export default Task
